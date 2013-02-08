@@ -152,9 +152,7 @@ describe "Products" do
       before(:each) do
         first(:link, "Products").click
         click_link "admin_new_product"
-        within('#new_product') do
-         page.should have_content("SKU")
-        end
+        first('#new_product').should have_content("SKU")
       end
 
       it "should allow an admin to create a new product", :js => true do
