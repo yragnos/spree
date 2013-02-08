@@ -5,13 +5,8 @@ describe "Customer Details" do
 
   let(:shipping_method) { create(:shipping_method, :display_on => "front_end") }
   let(:order) { create(:completed_order_with_totals) }
-  let(:country) do
-    create(:country, :name => "Kangaland")
-  end
-
-  let(:state) do
-    create(:state, :name => "Alabama", :country => country)
-  end
+  let(:country) { create(:country, :name => "Kangaland", :states_required => true) }
+  let(:state) { create(:state, :name => "Victoria", :country => country) }
 
   before do
     configure_spree_preferences do |config|
@@ -62,11 +57,11 @@ describe "Customer Details" do
         fill_in "First Name",              :with => "John 99"
         fill_in "Last Name",               :with => "Doe"
         fill_in "Company",                 :with => "Company"
-        fill_in "Street Address",          :with => "100 first lane"
-        fill_in "Street Address (cont'd)", :with => "#101"
+        fill_in "order_ship_address_attributes_address1", :with => "100 first lane"
+        fill_in "order_ship_address_attributes_address2", :with => "#101"
         fill_in "City",                    :with => "Bethesda"
         fill_in "Zip",                     :with => "20170"
-        targetted_select2 "Alabama",       :from => "#s2id_order_ship_address_attributes_state_id"
+        targetted_select2 "Victoria",       :from => "#s2id_order_ship_address_attributes_state_id"
         fill_in "Phone",                   :with => "123-456-7890"
       end
 
@@ -74,11 +69,11 @@ describe "Customer Details" do
         fill_in "First Name",              :with => "John 99"
         fill_in "Last Name",               :with => "Doe"
         fill_in "Company",                 :with => "Company"
-        fill_in "Street Address",          :with => "100 first lane"
-        fill_in "Street Address (cont'd)", :with => "#101"
+        fill_in "order_bill_address_attributes_address1", :with => "100 first lane"
+        fill_in "order_bill_address_attributes_address2", :with => "#101"
         fill_in "City",                    :with => "Bethesda"
         fill_in "Zip",                     :with => "20170"
-        targetted_select2 "Alabama",       :from => "#s2id_order_bill_address_attributes_state_id"
+        targetted_select2 "Victoria",       :from => "#s2id_order_bill_address_attributes_state_id"
         fill_in "Phone",                   :with => "123-456-7890"
       end
 
@@ -112,8 +107,8 @@ describe "Customer Details" do
       fill_in "order_ship_address_attributes_address2",   :with => "#101"
       fill_in "order_ship_address_attributes_city",       :with => "Bethesda"
       fill_in "order_ship_address_attributes_zipcode",    :with => "20170"
-      fill_in "order_ship_address_attributes_state_name", :with => "Alabama"
-      fill_in "order_ship_address_attributes_phone",     :with => "123-456-7890"
+      select "Victoria", :from => "order[ship_address_attributes][state_id]"
+      fill_in "order_ship_address_attributes_phone",      :with => "123-456-7890"
       lambda { click_button "Continue" }.should_not raise_error(NoMethodError)
     end
 

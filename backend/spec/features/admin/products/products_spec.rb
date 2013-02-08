@@ -150,7 +150,7 @@ describe "Products" do
 
     end
 
-    context "creating a new product" do
+    context "creating a new product", :js => true do
       before(:each) do
         click_link "Products"
         click_link "admin_new_product"

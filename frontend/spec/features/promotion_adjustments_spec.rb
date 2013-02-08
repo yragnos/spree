@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "Promotion adjustments", :js => true do
-  let!(:country) { create(:country, :name => "Kangaland",:states_required => true) }
+  let!(:country) { create(:country, :name => "Kangaland", :states_required => true) }
   let!(:state) { create(:state, :name => "Victoria", :country => country) }
   let!(:zone) { create(:zone) }
   let!(:shipping_method) do
@@ -39,21 +39,22 @@ describe "Promotion adjustments", :js => true do
     # OrdersController
     context "on the payment page" do
       before do
-
         visit spree.root_path
         click_link "RoR Mug"
         click_button "add-to-cart-button"
         click_button "Checkout"
-        fill_in "order_email", :with => "spree@example.com"
-        fill_in "First Name", :with => "John"
-        fill_in "Last Name", :with => "Smith"
-        fill_in "Street Address", :with => "1 John Street"
-        fill_in "City", :with => "City of John"
-        fill_in "Zip", :with => "01337"
-        select country.name, :from => "Country"
-        select state.name, :from => "order[bill_address_attributes][state_id]"
-        fill_in "Phone", :with => "555-555-5555"
+        fill_in "Customer E-Mail", :with => "customer@example.com"
 
+        within('#billing') do
+          fill_in "First Name", :with => "John"
+          fill_in "Last Name", :with => "Smith"
+          fill_in "order_bill_address_attributes_address1", :with => "1 John Street"
+          fill_in "City", :with => "City of John"
+          fill_in "Zip", :with => "01337"
+          select country.name, :from => "Country"
+          select state.name, :from => "order[bill_address_attributes][state_id]"
+          fill_in "Phone", :with => "555-555-5555"
+        end
         # To shipping method screen
         click_button "Save and Continue"
         # To payment screen

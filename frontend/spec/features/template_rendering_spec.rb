@@ -29,7 +29,6 @@ describe "Template rendering" do
     it "should render default layout" do
       visit spree.root_path
       page.should_not have_content('I am the application layout')
-      page.should have_content('Spree Demo Site')
     end
 
   end

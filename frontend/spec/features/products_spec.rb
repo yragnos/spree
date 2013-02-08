@@ -32,7 +32,7 @@ describe "Visiting Products" do
   end
   
   it "should be able to visit brand Ruby on Rails" do
-    within(:css, '#taxonomies') { click_link "Ruby on Rails" }
+    within('#taxonomies') { click_link "Ruby on Rails" }
 
     page.all('ul.product-listing li').size.should == 7
     tmp = page.all('ul.product-listing li a').map(&:text).flatten.compact
@@ -47,17 +47,20 @@ describe "Visiting Products" do
     tmp.sort!.should == array
   end
 
-  it "should be able to visit brand Ruby" do
-    within(:css, '#taxonomies') { click_link "Ruby" }
+  it "should be able to visit brand Ruby on Rails" do
+    within('#taxonomies') { first(:link, 'Ruby on Rails').click }
 
-    page.all('ul.product-listing li').size.should == 1
+    page.all('ul.product-listing li').size.should == 7
     tmp = page.all('ul.product-listing li a').map(&:text).flatten.compact
-    tmp.delete("")
-    tmp.sort!.should == ["Ruby Baseball Jersey"]
+    tmp.delete('')
+    tmp.sort!.should == ['Ruby on Rails Bag', 'Ruby on Rails Baseball Jersey',
+                         'Ruby on Rails Jr. Spaghetti', 'Ruby on Rails Mug',
+                         'Ruby on Rails Ringer T-Shirt', 'Ruby on Rails Stein',
+                         'Ruby on Rails Tote']
   end
 
   it "should be able to visit brand Apache" do
-    within(:css, '#taxonomies') { click_link "Apache" }
+    within('#taxonomies') { click_link "Apache" }
 
     page.all('ul.product-listing li').size.should == 1
     tmp = page.all('ul.product-listing li a').map(&:text).flatten.compact
@@ -97,16 +100,16 @@ describe "Visiting Products" do
   end
 
   it "should be able to display products priced under 10 dollars" do
-    within(:css, '#taxonomies') { click_link "Ruby on Rails" }
+    within('#taxonomies') { click_link "Ruby on Rails" }
     check "Price_Range_Under_$10.00"
-    within(:css, '#sidebar_products_search') { click_button "Search" }
+    within('#sidebar_products_search') { click_button "Search" }
     page.should have_content("No products found")
   end
 
   it "should be able to display products priced between 15 and 18 dollars" do
-    within(:css, '#taxonomies') { click_link "Ruby on Rails" }
+    within('#taxonomies') { click_link "Ruby on Rails" }
     check "Price_Range_$15.00_-_$18.00"
-    within(:css, '#sidebar_products_search') { click_button "Search" }
+    within('#sidebar_products_search') { click_button "Search" }
 
     page.all('ul.product-listing li').size.should == 3
     tmp = page.all('ul.product-listing li a').map(&:text).flatten.compact
@@ -116,9 +119,9 @@ describe "Visiting Products" do
 
   it "should be able to display products priced between 15 and 18 dollars across multiple pages" do
     Spree::Config.products_per_page = 2
-    within(:css, '#taxonomies') { click_link "Ruby on Rails" }
+    within('#taxonomies') { click_link "Ruby on Rails" }
     check "Price_Range_$15.00_-_$18.00"
-    within(:css, '#sidebar_products_search') { click_button "Search" }
+    within('#sidebar_products_search') { click_button "Search" }
 
     page.all('ul.product-listing li').size.should == 2
     products = page.all('ul.product-listing li a[itemprop=name]')
@@ -130,10 +133,10 @@ describe "Visiting Products" do
   end
 
   it "should be able to display products priced 18 dollars and above" do
-    within(:css, '#taxonomies') { click_link "Ruby on Rails" }
+    within('#taxonomies') { click_link "Ruby on Rails" }
     check "Price_Range_$18.00_-_$20.00"
     check "Price_Range_$20.00_or_over"
-    within(:css, '#sidebar_products_search') { click_button "Search" }
+    within('#sidebar_products_search') { click_button "Search" }
 
     page.all('ul.product-listing li').size.should == 4
     tmp = page.all('ul.product-listing li a').map(&:text).flatten.compact

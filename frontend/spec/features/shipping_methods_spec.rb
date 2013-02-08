@@ -17,17 +17,20 @@ describe 'Shipping methods', :js => true do
     click_button "Checkout"
 
     fill_in "Customer E-Mail", :with => "customer@example.com"
+
     str_addr = "bill_address"
-    select address.country.name, :from => "order_#{str_addr}_attributes_country_id"
+
     ['firstname', 'lastname', 'address1', 'city', 'zipcode', 'phone'].each do |field|
       fill_in "order_#{str_addr}_attributes_#{field}", :with => "#{address.send(field)}"
     end
-    select "#{address.state.name}", :from => "order_#{str_addr}_attributes_state_id"
+
+    select address.country.name, :from => "Country"
+    select "#{address.state.name}", :from => "order[bill_address_attributes][state_id]"
+
     click_button "Save and Continue"
   end
 
   def assert_shipping_method_visible
-    page.should have_content("Shipping Method")
     within("#shipping_method") do
       page.should have_content(shipping_method.name),
         "Shipping method #{shipping_method.name.inspect} not found on page."

@@ -34,7 +34,7 @@ describe "Payment Methods" do
       page.should have_content("New Payment Method")
       fill_in "payment_method_name", :with => "check90"
       fill_in "payment_method_description", :with => "check90 desc"
-      select "PaymentMethod::Check", :from => "gtwy-type"
+      select "Spree::PaymentMethod::Check", :from => "gtwy-type"
       click_button "Create"
       page.should have_content("successfully created!")
     end

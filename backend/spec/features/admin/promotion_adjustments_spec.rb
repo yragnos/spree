@@ -20,7 +20,7 @@ describe "Promotion Adjustments" do
       select2 "Item total", :from => "Add rule of type"
       within('#rule_fields') { click_button "Add" }
 
-      eventually_fill_in "promotion_promotion_rules_attributes_#{Spree::Promotion.count}_preferred_amount", :with => 30
+      fill_in "promotion_promotion_rules_attributes_#{Spree::Promotion.count}_preferred_amount", :with => 30
       within('#rule_fields') { click_button "Update" }
 
       select2 "Create adjustment", :from => "Add action of type"
@@ -82,7 +82,7 @@ describe "Promotion Adjustments" do
       select2 "Item total", :from => "Add rule of type"
       within('#rule_fields') { click_button "Add" }
 
-      eventually_fill_in "promotion_promotion_rules_attributes_1_preferred_amount", :with => 30
+      fill_in "promotion_promotion_rules_attributes_1_preferred_amount", :with => 30
       within('#rule_fields') { click_button "Update" }
 
       select2 "Create adjustment", :from => "Add action of type"
@@ -149,7 +149,7 @@ describe "Promotion Adjustments" do
 
       select2 "Item total", :from => "Add rule of type"
       within('#rule_fields') { click_button "Add" }
-      eventually_fill_in "promotion_promotion_rules_attributes_1_preferred_amount", :with => "30"
+      fill_in "promotion_promotion_rules_attributes_1_preferred_amount", :with => "30"
       within('#rule_fields') { click_button "Update" }
 
       select2 "Create adjustment", :from => "Add action of type"
@@ -241,7 +241,7 @@ describe "Promotion Adjustments" do
 
       select2 "Item total", :from => "Add rule of type"
       within('#rule_fields') { click_button "Add" }
-      eventually_fill_in "promotion_promotion_rules_attributes_1_preferred_amount", :with => "50"
+      fill_in "promotion_promotion_rules_attributes_1_preferred_amount", :with => "50"
       within('#rule_fields') { click_button "Update" }
 
       select2 "Create adjustment", :from => "Add action of type"
