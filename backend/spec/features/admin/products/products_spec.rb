@@ -16,7 +16,7 @@ describe "Products" do
         end
 
         it "should list existing products with correct sorting by name" do
-          click_link "Products"
+          first(:link, "Products").click
           # Name ASC
           within_row(1) { page.should have_content('apache baseball cap') }
           within_row(2) { page.should have_content("zomg shirt") }
@@ -28,7 +28,7 @@ describe "Products" do
         end
 
         it "should list existing products with correct sorting by price" do
-          click_link "Products"
+          first(:link, "Products").click
 
           # Name ASC (default)
           within_row(1) { page.should have_content('apache baseball cap') }
@@ -47,7 +47,7 @@ describe "Products" do
         create(:product, :name => 'apache baseball cap', :deleted_at => "2011-01-06 18:21:13")
         create(:product, :name => 'zomg shirt')
 
-        click_link "Products"
+        first(:link, "Products").click
         page.should have_content("zomg shirt")
         page.should_not have_content("apache baseball cap")
         check "Show Deleted"
@@ -65,7 +65,7 @@ describe "Products" do
         create(:product, :name => 'apache baseball cap2', :sku => "B100")
         create(:product, :name => 'zomg shirt')
 
-        click_link "Products"
+        first(:link, "Products").click
         fill_in "q_name_cont", :with => "ap"
         click_icon :search
         page.should have_content("apache baseball cap")
@@ -111,11 +111,9 @@ describe "Products" do
       before(:each) do
         @option_type_prototype = prototype
         @property_prototype = create(:prototype, :name => "Random")
-        click_link "Products"
+        first(:link, "Products").click
         click_link "admin_new_product"
-        within('#new_product') do
-         page.should have_content("SKU")
-        end
+        first('#new_product').should have_content("SKU")
       end
 
       it "should allow an admin to create a new product and variants from a prototype", :js => true do
@@ -152,7 +150,7 @@ describe "Products" do
 
     context "creating a new product", :js => true do
       before(:each) do
-        click_link "Products"
+        first(:link, "Products").click
         click_link "admin_new_product"
         within('#new_product') do
          page.should have_content("SKU")
@@ -193,7 +191,7 @@ describe "Products" do
       it "should allow an admin to clone a product" do
         create(:product)
 
-        click_link "Products"
+        first(:link, "Products").click
         within_row(1) do
           click_icon :copy
         end
@@ -205,7 +203,7 @@ describe "Products" do
         it "should allow an admin to clone a deleted product" do
           create(:product, :name => "apache baseball cap")
 
-          click_link "Products"
+          first(:link, "Products").click
           check "Show Deleted"
           click_button "Search"
 

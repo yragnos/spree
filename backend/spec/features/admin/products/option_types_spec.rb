@@ -46,7 +46,7 @@ describe "Option Types" do
       create(:option_type, :name => "tshirt-color", :presentation => "Color")
       create(:option_type, :name => "tshirt-size", :presentation => "Size")
       click_link "Option Types"
-      within('table#listing_option_types') { click_link "Edit" }
+      within('table#listing_option_types') { first(:link, "Edit").click }
       fill_in "option_type_name", :with => "foo-size 99"
       click_button "Update"
       page.should have_content("successfully updated!")

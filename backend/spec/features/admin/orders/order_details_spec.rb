@@ -36,7 +36,8 @@ describe "Order Details" do
       click_link "Edit"
       fill_in "order_line_items_attributes_0_quantity", :with => "1"
       click_button "Update"
-      page.should have_content("Total: $19.99")
+
+      page.should have_content("$19.99")
     end
 
     it "should render details properly" do
@@ -49,9 +50,9 @@ describe "Order Details" do
       find(".page-title").text.strip.should == "Order #R100"
 
       within ".additional-info" do
-        find(".state").text.should == "complete"
-        find("#shipment_status").text.should == "none"
-        find("#payment_status").text.should == "none"
+        first(".state").text.should == "complete"
+        first("#shipment_status").text.should == "none"
+        first("#payment_status").text.should == "none"
       end
 
       I18n.backend.store_translations I18n.locale,
