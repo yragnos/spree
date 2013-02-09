@@ -20,6 +20,7 @@ describe "Product Images" do
       click_button "Update"
       page.should have_content("successfully created!")
       click_icon(:edit)
+
       fill_in "image_alt", :with => "ruby on rails t-shirt"
       click_button "Update"
       page.should have_content("successfully updated!")

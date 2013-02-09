@@ -38,6 +38,4 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Spree::TestingSupport::UrlHelpers
   config.include Spree::TestingSupport::ControllerRequests, :type => :controller
-
-  config.include Rack::Test::Methods
 end
