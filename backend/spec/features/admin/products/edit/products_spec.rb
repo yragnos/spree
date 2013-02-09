@@ -11,8 +11,7 @@ describe 'Product Details' do
 
       visit spree.admin_path
       click_link 'Products'
-      save_and_open_page
-      within('#spree_product_1') { click_icon :edit }
+      within_row(1) { click_icon :edit }
 
       click_link 'Product Details'
 
