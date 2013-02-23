@@ -103,7 +103,11 @@ describe Spree::CheckoutController do
         end
 
         context "when in the confirm state" do
-          before { order.stub :state => "complete" }
+          before do
+            order.stub :state => "complete"
+            order.stub :completed? => true
+            controller.stub :ensure_order_not_completed => true
+          end
 
           it "should redirect to the order view" do
             spree_post :update, {:state => "confirm"}
