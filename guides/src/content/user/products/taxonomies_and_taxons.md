@@ -107,6 +107,6 @@ Press "OK" to confirm.
 
 ## Associating Products with Taxons
 
-To associate a product with one or more taxons, go to the Admin Interface, and click the "Products" tab. Locate the product you want to edit, and click its "Edit" icon. Select the taxons for the product in the Taxons field.
+To associate a product with one or more taxons, go to the Admin Interface, and click the "Products" tab. Locate the product you want to edit, and click its "Edit" icon. Select the taxons for the product in the Taxons field. (Note: Image below is shown for Option Types, but the process is same for Taxons)
 
 ![Add Taxons to a Product](../../../images/user/config/add_taxons_to_product.jpg)
